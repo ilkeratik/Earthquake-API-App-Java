@@ -1,4 +1,4 @@
-package com.example.earthquake_service;
+package com.ilker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
