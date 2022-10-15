@@ -1,17 +1,21 @@
 package com.ilker.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.ilker.JsonMapping.EarthquakeDeserializer;
+import lombok.*;
+
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonDeserialize(using = EarthquakeDeserializer.class)
 public class Earthquake {
     private String country;
     private String place;
     private double magnitude;
     private Date date;
-    private String timestamp;
+    private long timestamp;
 }

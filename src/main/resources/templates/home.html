@@ -1,11 +1,48 @@
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search for latest earthquakes in your country!</title>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            empty-cells: show;
+            margin: 20px auto;
+        }
+
+        table,
+        td,
+        th {
+            border-collapse: collapse;
+        }
+        tr:nth-child(odd) {
+            background: #eee;
+        }
+        th,
+        td {
+            padding: 10px;
+            border: solid 1px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello world</h1>
+<div >
+    <table style="border : 1px;">
+        <tr>
+            <th>Country</th>
+            <th>Place</th>
+            <th>magnitude</th>
+            <th>date</th>
+            <th>timestamp</th>
+        </tr>
 
+        <tr  th:each="earthquake : ${earthquakes}">
+            <td  th:text="${earthquake.country}"></td>
+            <td  th:text="${earthquake.place}"></td>
+            <td  th:text="${earthquake.magnitude}"></td>
+            <td  th:text="${earthquake.date}"></td>
+            <td  th:text="${earthquake.timestamp}"></td>
+        </tr >
+    </table>
+</div>
 </body>
-
-
-</html>
