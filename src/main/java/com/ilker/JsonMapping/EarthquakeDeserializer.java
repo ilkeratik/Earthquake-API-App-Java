@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ilker.Model.Earthquake;
-import jdk.security.jarsigner.JarSigner;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Iterator;
 
 public class EarthquakeDeserializer extends StdDeserializer<Earthquake> {
     public EarthquakeDeserializer() {
@@ -33,23 +31,21 @@ public class EarthquakeDeserializer extends StdDeserializer<Earthquake> {
             String place_s = place.asText();
             String[] country = place_s.split(",");
 
-            earthquake.setPlace(country[0]);
-            earthquake.setCountry(country[country.length-1]);
+            earthquake.setPlace(country[0].strip());
+            earthquake.setCountry(country[country.length-1].strip());
 
             JsonNode mag = node.get("mag");
             double mag_s = mag.asDouble();
             earthquake.setMagnitude(mag_s);
 
             JsonNode time = node.get("time");
-            long time_n = mag.asInt();
+            long time_n = time.asLong();
             earthquake.setTimestamp(time_n);
-            earthquake.setDate(new Date(new Timestamp(time_n).getTime()));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
 
         }
-        System.out.println(earthquake);
         return earthquake;
     }
 }

@@ -1,9 +1,9 @@
 package com.ilker.Model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.ilker.JsonMapping.EarthquakeDeserializer;
 import lombok.*;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -18,4 +18,13 @@ public class Earthquake {
     private double magnitude;
     private Date date;
     private long timestamp;
+    private String date_str;
+    private String time_str;
+    public void setTimestamp(Long timestamp){
+        date = new Date(new Timestamp(timestamp).getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm"); //hour
+        time_str = formatter.format(date);
+        formatter = new SimpleDateFormat("yyyy/dd/MM"); //day
+        date_str = formatter.format(date);
+    }
 }

@@ -1,7 +1,7 @@
-<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Student Details</title>
+    <title>Explorer : Earthquake</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         table {
@@ -38,6 +38,21 @@
         input[type='number']{
             width: 60px;
         }
+        .note{
+            display: block;
+            width: 400px;
+            text-align: left;
+            margin-top: 15px;
+            margin-left: 3px;
+        }
+        .error-box{
+            background-color: red;
+            color: #eeeeee;
+            text-align: center;
+            padding: 15px;
+            width: fit-content;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +66,7 @@
                         th:value="${country}"
                         th:text="${country}" th:selected="${country==selected_country}"/>
             </select>
+            <small class="note">Note: It will use countries latitude,longitude to draw a circle, thus results may contain close countries too.</small>
         </div>
 
         <div>
@@ -59,12 +75,23 @@
                    th:value="${selected_days}" id="days" name="days"> <span> days</span>
         </div>
         <div>
+            <label for="includeregionsaround">Include regions around</label>
+            <input type="checkbox" id="includeregionsaround" name="includeregionsaround" checked>
+            <small class="note">Note: Tick this if you want to include close regions/states/counties (expand search) otherwise it will show only data that matches country name.</small>
+
+        </div>
+        <div>
             <input type="submit" value="Search"/>
         </div>
     </form>
 
 </div>
-<div>
+<div class="error-box" th:if="${error_occured}">
+    <p>Error with the request / No result</p>
+    <p>Details: </p><span th:text="${error_msg}"></span>
+
+</div>
+<div th:unless="${error_occured}">
     <table style="border : 1px;">
         <tr>
             <th>Country</th>
@@ -78,8 +105,8 @@
             <td  th:text="${earthquake.country}"></td>
             <td  th:text="${earthquake.place}"></td>
             <td  th:text="${earthquake.magnitude}"></td>
-            <td  th:text="${earthquake.date}"></td>
-            <td  th:text="${earthquake.timestamp}"></td>
+            <td  th:text="${earthquake.date_str}"></td>
+            <td  th:text="${earthquake.time_str}"></td>
         </tr >
     </table>
 </div>
